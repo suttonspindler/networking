@@ -1,0 +1,26 @@
+{
+  "name": "networking",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suttonspindler/networking.git"
+  },
+  "author": "Moi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/suttonspindler/networking/issues"
+  },
+  "homepage": "https://github.com/suttonspindler/networking#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "helmet": "^7.0.0",
+    "nodemon": "^3.0.1"
+  }
+}
