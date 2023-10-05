@@ -8,6 +8,8 @@ const UserSchema = new Schema(
     password: { type: String, required: true },
     email: { type: String, unique: true, required: true },
     bio: { type: String, required: false },
+    followers: [{ type: String }],
+    following: [{ type: String }],
   },
   {
     collection: "users",
