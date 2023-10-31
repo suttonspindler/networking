@@ -12,11 +12,11 @@ const UserSchema = new Schema(
     following: [{ type: String }],
   },
   {
-    collection: "users",
+    collection: "Users",
   }
 );
 
-const db = mongoose.connection.useDb("users");
+const db = mongoose.connection.useDb("NetworkBuilder");
 const User = db.model("User", UserSchema);
 
 export default User;
