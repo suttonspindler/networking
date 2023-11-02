@@ -4,7 +4,7 @@ import User from "../models/user.js";
 export default class UserAccessor {
   static async getUser(username) {
     try {
-      await Connection.open("users");
+      await Connection.open("NetworkBuilder");
       const user = await User.findOne({ username: username });
       return user;
     } catch (e) {
@@ -27,7 +27,7 @@ export default class UserAccessor {
 
   static async createUser(userDoc) {
     try {
-      await Connection.open("users");
+      await Connection.open("NetworkBuilder");
       const user = await User.create(userDoc);
       return user;
     } catch (e) {
@@ -37,7 +37,7 @@ export default class UserAccessor {
 
   static async addFollower(userWhoFollowed, userToFollow) {
     try {
-      await Connection.open("users");
+      await Connection.open("NetworkBuilder");
       const follower = await UserAccessor.getUser(userWhoFollowed);
       const followee = await UserAccessor.getUser(userToFollow);
 
