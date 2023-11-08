@@ -47,14 +47,8 @@ export default class UserAccessor {
       const followeeList = followee.followers;
       followeeList.push(userWhoFollowed);
 
-      await User.findOneAndUpdate(
-        { username: userWhoFollower },
-        { following: followerList }
-      );
-      await User.findOneAndUpdate(
-        { username: userToFollow },
-        { followers: followeeList }
-      );
+      await User.findOneAndUpdate({ username: userWhoFollowed }, { following: followerList });
+      await User.findOneAndUpdate({ username: userToFollow }, { followers: followeeList });
     } catch (e) {
       throw e;
     }

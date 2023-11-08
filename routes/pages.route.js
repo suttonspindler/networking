@@ -8,10 +8,6 @@ const router = express.Router();
 
 router.route("/").get(UserController.getAllUsers);
 
-router.route("/page2").get((req, res) => {
-  res.sendFile(path.resolve() + "/page2.html");
-});
-
 router.route("/css/index.css").get((req, res) => {
   res.sendFile(path.resolve() + "/css/index.css");
 });
@@ -26,7 +22,7 @@ router
   .post(UserController.postLogin, errorHandler);
 
 router
-  .route("/sign-up")
+.route("/sign-up")
   .get(UserController.getSignUpPage)
   .post(UserController.postSignUp, errorHandler);
 

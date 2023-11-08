@@ -18,6 +18,5 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use("/", route);
-app.use("/page2", route);
 
 export default app;

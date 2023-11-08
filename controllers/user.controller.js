@@ -114,12 +114,7 @@ export default class UserController {
       const username = user.username;
       const following = user.following;
 
-      if (
-        following.every((follower) => {
-          follower !== toFollow;
-        }) &&
-        toFollow != username
-      ) {
+      if (following.every((follower) => { follower !== toFollow; }) && toFollow != username) {
         await UserAccessor.addFollower(username, toFollow);
       }
       res.redirect("/");
