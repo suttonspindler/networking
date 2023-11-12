@@ -8,7 +8,7 @@ import Auth from "../auth/authorization.js";
 export default class UserController {
   static async getAllUsers(req, res) {
     const users = await UserAccessor.getAllUsers();
-    res.render("index", { users: users });
+    res.render("index", { users: users, token: req.cookies.token });
   }
 
   static async createUser(userDoc) {
@@ -31,15 +31,17 @@ export default class UserController {
 
   static getSignUpPage(req, res) {
     if (req.cookies.token) {
-      res.redirect("/profile");
+      res.redirect("/logout");
     } else {
       res.render("sign_up");
     }
   }
 
-  static getProfile(req, res, next) {
+  static async getProfile(req, res, next) {
     if (!req.error) {
-      const user = Auth.getUserInfo(req);
+      var user = Auth.getUserInfo(req);
+      const username = user.username;
+      user = await UserAccessor.getUser(username);
       res.render("profile", {
         name: user.username,
         email: user.email,
@@ -110,11 +112,12 @@ export default class UserController {
   static async followUser(req, res, next) {
     if (!req.error) {
       const toFollow = req.body.follow;
-      const user = Auth.getUserInfo(req);
+      var user = Auth.getUserInfo(req);
       const username = user.username;
+      user = await UserAccessor.getUser(username);
       const following = user.following;
 
-      if (following.every((follower) => { follower !== toFollow; }) && toFollow != username) {
+      if (!following.includes(toFollow) && toFollow != username) {
         await UserAccessor.addFollower(username, toFollow);
       }
       res.redirect("/");
