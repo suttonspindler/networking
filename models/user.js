@@ -10,6 +10,14 @@ const UserSchema = new Schema(
     bio: { type: String, required: false },
     followers: [{ type: String }],
     following: [{ type: String }],
+    directMessages: [
+      {
+        sender: {type: String}, // username of the sender
+        recipient: {type: String}, // username of the recipient
+        content: {type: String},
+        timestamp: {type: Date, default: Date.now}
+      }
+    ]
   },
   {
     collection: "Users",

@@ -1,0 +1,19 @@
+.text-message-container {
+    justify-items: center;
+    display: grid;
+    grid-template-columns: 600px;
+    row-gap: 10px;
+}
+
+/* Style for each individual text message */
+.text-message {
+    padding: 10px 0px 10px 5px;
+    text-align: center;
+    background-color: #18224f;
+    width: 500px;
+    border-radius: 20px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

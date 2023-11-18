@@ -16,6 +16,10 @@ router.route("/css/style.css").get((req, res) => {
   res.sendFile(path.resolve() + "/css/style.css");
 });
 
+router.route("/css/chat.css").get((req, res) => {
+  res.sendFile(path.resolve() + "/css/chat.css");
+});
+
 router
   .route("/login-page")
   .get(UserController.getLoginPage)
@@ -30,10 +34,18 @@ router
   .route("/profile")
   .get(Auth.authorize, UserController.getProfile, errorHandler);
 
+router
+  .route("/chat")
+  .get(Auth.authorize, UserController.getChat, errorHandler);
+
 router.route("/logout").get(UserController.getLogout);
 
 router
   .route("/follow")
   .post(Auth.authorize, UserController.followUser, errorHandler);
+
+router
+  .route("/send")
+  .post(Auth.authorize, UserController.sendMessage, errorHandler);
 
 export default router;

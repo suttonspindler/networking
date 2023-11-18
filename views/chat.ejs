@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="css/chat.css" rel="stylesheet" type="text/css" />
+    <title>Chat</title>
+</head>
+
+<body>
+    <h1 class="header">Chat</h1>
+    <hr class="hr" />
+    <div class="text-message-container page-content">
+        <% messages.forEach((message)=> { %>
+            <% if(message.recipient===toName && message.sender===fromName || message.recipient===fromName &&
+                message.sender===toName) { %>
+                <div class="text-message">
+                    <label for="chat">
+                        <p>
+                            From: <%= message.sender %>&emsp;To: <%= message.recipient %>
+                        </p>
+                        <p>
+                            Time: <%= message.timestamp.toLocaleString('en-US', { weekday: 'short' , year: 'numeric' ,
+                                month: 'short' , day: 'numeric' , hour: 'numeric' , minute: 'numeric' ,
+                                second: 'numeric' , timeZoneName: 'short' }) %>
+                        </p>
+                        <hr class="hr" />
+                        <p>
+                            <%= message.content %>
+                        </p>
+                    </label>
+                </div>
+                <% }; %>
+                    <% }); %>
+                        <div class="text-message">
+                            <form action="/send" method="POST" class="form">
+                                <input type="text" id="messageContent" name="messageContent" placeholder="Message"
+                                    required />
+                                <input type="hidden" id="recipient" name="recipient" value="<%= toName %>" />
+                                <button class="btn" type="submit">Send Message to <%= toName %></button>
+                            </form>
+                        </div>
+    </div>
+    <div class="page-buttons">
+        <a href="/">
+            <button class="btn">Home</button>
+        </a>
+        <a href="/logout">
+            <button class="btn">Logout</button>
+        </a>
+    </div>
+</body>
+
+</html>

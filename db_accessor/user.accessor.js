@@ -53,4 +53,23 @@ export default class UserAccessor {
       throw e;
     }
   }
+
+  static async addMessage(userWhoSent, userWhoReceived, message) {
+    try {
+      await Connection.open("NetworkBuilder");
+      const sender = await UserAccessor.getUser(userWhoSent);
+      const recipient = await UserAccessor.getUser(userWhoReceived);
+
+      const senderMessages = sender.directMessages;
+      senderMessages.push(message);
+
+      const recipientMessages = recipient.directMessages;
+      recipientMessages.push(message);
+
+      await User.findOneAndUpdate({ username: userWhoSent }, { directMessages: senderMessages });
+      await User.findOneAndUpdate({ username: userWhoReceived }, { directMessages: recipientMessages });
+    } catch (e) {
+      throw e;
+    }
+  }
 }

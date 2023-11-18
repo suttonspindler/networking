@@ -54,6 +54,24 @@ export default class UserController {
     }
   }
 
+  static async getChat(req, res, next) {
+    if (!req.error) {
+      const toChatUsername = req.query.chat;
+      var toChat = await UserAccessor.getUser(toChatUsername);
+
+      var user = Auth.getUserInfo(req);
+      const username = user.username;
+      user = await UserAccessor.getUser(username);
+      res.render("chat", {
+        fromName: user.username,
+        toName: toChat.username,
+        messages: user.directMessages,
+      });
+    } else {
+      return next();
+    }
+  }
+
   static getLogout(req, res) {
     res.clearCookie("token");
     res.redirect("/");
@@ -121,6 +139,27 @@ export default class UserController {
         await UserAccessor.addFollower(username, toFollow);
       }
       res.redirect("/");
+    } else {
+      return next();
+    }
+  }
+
+  static async sendMessage(req, res, next) {
+    if (!req.error) {
+
+      const recipient = req.body.recipient;
+      var user = Auth.getUserInfo(req);
+      const username = user.username;
+
+      const message = {
+        sender: username,
+        recipient: recipient,
+        content: req.body.messageContent,
+        timestamp: new Date(),
+      };
+
+      await UserAccessor.addMessage(username, recipient, message);
+      res.redirect(`/chat?chat=${recipient}`);
     } else {
       return next();
     }

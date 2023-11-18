@@ -16,23 +16,27 @@
   <div class="profile-container page-content">
     <% users.forEach((user)=> { %>
       <div class="profile-block">
-        <form action="/follow" method="POST">
-          <label for="follow">
-            <h3>
-              <%= user.username %>
-            </h3>
-            <p>
-              Followers: <%= user.followers.length %>&emsp;Following: <%= user.following.length %>
-            </p>
-            <p>
-              <%= user.bio %>
-            </p>
-            <hr class="hr" />
-            <p>Contact Info: <%= user.email %>
-            </p>
-          </label>
+        <label for="follow">
+          <h3>
+            <%= user.username %>
+          </h3>
+          <p>
+            Followers: <%= user.followers.length %>&emsp;Following: <%= user.following.length %>
+          </p>
+          <p>
+            <%= user.bio %>
+          </p>
+          <hr class="hr" />
+          <p>Contact Info: <%= user.email %>
+          </p>
+        </label>
+        <form action="/follow" method="POST" class="inline-form">
           <input type="hidden" id="follow" name="follow" value="<%= user.username %>" />
           <button class="btn" type="submit">Follow <%= user.username %></button>
+        </form>
+        <form action="/chat" method="GET" class="inline-form">
+          <input type="hidden" id="chat" name="chat" value="<%= user.username %>" />
+          <button class="btn" type="submit">Chat <%= user.username %></button>
         </form>
       </div>
       <% }); %>
